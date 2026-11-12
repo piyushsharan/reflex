@@ -28,6 +28,20 @@
   $$(".nav-link").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
   $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
   $("#mobileMenu").addEventListener("click",()=>$("#sidebar").classList.toggle("open"));
+  function setAnalysisTab(tab){
+    const reaction=tab==="reaction";
+    $("#analysis-reaction-panel").hidden=!reaction;
+    $("#analysis-games-panel").hidden=reaction;
+    $(".analysis-tab").forEach(button=>{
+      const selected=button.dataset.analysisTab===tab;
+      button.classList.toggle("active",selected);
+      button.setAttribute("aria-selected",String(selected));
+    });
+    if(reaction)drawCharts();
+    else renderGameHistory();
+  }
+  $(".analysis-tab").forEach(button=>button.addEventListener("click",()=>setAnalysisTab(button.dataset.analysisTab)));
+  setAnalysisTab("reaction");
   $("#todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
 
   const stages = {
@@ -75,7 +89,14 @@
     focus:{title:"Focus Finder",desc:"Find the unique symbol among the decoys.",instructions:"Click the one symbol that is different from all the others."},
     tracking:{title:"Moving Target",desc:"Click the moving target as many times as you can in 30 seconds.",instructions:"The target moves around the board. Keep your eyes on it."}
   };
-  $$(".game-launch").forEach(b=>b.addEventListener("click",()=>openGame(b.dataset.game)));
+  // Delegate launch clicks so every game card remains usable after closing the modal.
+  document.addEventListener("click",event=>{
+    const button=event.target.closest(".game-launch");
+    if(!button)return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    openGame(button.dataset.game);
+  },true);
   function openGame(type){
     if(!gameInfo[type])return;
     if($("#gameModal").classList.contains("open"))closeGame();
@@ -85,7 +106,7 @@
     $("#gameModal").classList.add("open");$("#gameModal").setAttribute("aria-hidden","false");
     resetGameUI();
   }
-  function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;}
+  function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;$("#gameBoard").innerHTML="";$("#restartGame").hidden=true;}
   $("#closeModal").addEventListener("click",closeGame);
   function returnToGameSelection(){
     if(gameState.started&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
