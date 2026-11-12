@@ -32,7 +32,7 @@
     const reaction=tab==="reaction";
     $("#analysis-reaction-panel").hidden=!reaction;
     $("#analysis-games-panel").hidden=reaction;
-    $(".analysis-tab").forEach(button=>{
+    $$(".analysis-tab").forEach(button=>{
       const selected=button.dataset.analysisTab===tab;
       button.classList.toggle("active",selected);
       button.setAttribute("aria-selected",String(selected));
@@ -40,7 +40,7 @@
     if(reaction)drawCharts();
     else renderGameHistory();
   }
-  $(".analysis-tab").forEach(button=>button.addEventListener("click",()=>setAnalysisTab(button.dataset.analysisTab)));
+  $$(".analysis-tab").forEach(button=>button.addEventListener("click",()=>setAnalysisTab(button.dataset.analysisTab)));
   setAnalysisTab("reaction");
   $("#todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
 
