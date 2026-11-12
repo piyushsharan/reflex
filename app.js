@@ -86,7 +86,21 @@
     resetGameUI();
   }
   function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;}
-  $("#closeModal").addEventListener("click",closeGame);$("#switchGame").addEventListener("click",()=>{closeGame();showPage("trainer");});
+  $("#closeModal").addEventListener("click",closeGame);
+  function returnToGameSelection(event){
+    event?.preventDefault();
+    event?.stopPropagation();
+    if(gameState.started&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
+    stopGameTimers();
+    gameState.finished=true;
+    activeGame=null;
+    const modal=$("#gameModal");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    showPage("trainer");
+    requestAnimationFrame(()=>{$("#page-trainer").scrollIntoView({block:"start"});});
+  }
+  $("#switchGame").addEventListener("click",returnToGameSelection);
   $("#gameModal").addEventListener("click",e=>{if(e.target===$("#gameModal"))closeGame();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#gameModal").classList.contains("open"))closeGame();});
   function scheduleGame(fn,delay){const run=gameRunId;const id=setTimeout(()=>{gameTimeouts.delete(id);if(run!==gameRunId||!$("#gameModal").classList.contains("open")||gameState.finished)return;fn();},delay);gameTimeouts.add(id);return id;}
