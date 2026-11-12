@@ -1,7 +1,8 @@
-# Explicitly include first-party source files in GitHub Linguist statistics.
-# The app files are compact; ensure they are not treated as generated or prose.
-*.html linguist-language=HTML linguist-detectable=true linguist-generated=false
-*.js linguist-language=JavaScript linguist-detectable=true linguist-generated=false
-*.css linguist-language=CSS linguist-detectable=true linguist-generated=false
-*.py linguist-language=Python linguist-detectable=true linguist-generated=false
-*.ts linguist-language=TypeScript linguist-detectable=true linguist-generated=false
+# Keep the project's real source files in GitHub Linguist statistics.
+# Paths are explicit so there is no ambiguity about which files are included.
+index.html linguist-detectable=true linguist-generated=false linguist-documentation=false
+app.js linguist-detectable=true linguist-generated=false linguist-documentation=false
+styles.css linguist-detectable=true linguist-generated=false linguist-documentation=false
+tools/analyze_reaction.py linguist-detectable=true linguist-generated=false linguist-documentation=false
+src/analytics.ts linguist-detectable=true linguist-generated=false linguist-documentation=false
+tests/test_analytics.py linguist-detectable=true linguist-generated=false linguist-documentation=false
