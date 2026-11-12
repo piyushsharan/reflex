@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090b0d" />
+  <title>REFLEX — Reaction Training Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="REFLEX home">
+        <span class="brand-mark">R<span>.</span></span>
+        <span class="brand-name">REFLEX<small>REACTION LAB</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="overview"><span class="nav-icon">▦</span>Overview</button>
+        <button class="nav-link" data-page="test"><span class="nav-icon">◉</span>Reaction test</button>
+        <button class="nav-link" data-page="trainer"><span class="nav-icon">⌁</span>Trainer games</button>
+        <button class="nav-link" data-page="analysis"><span class="nav-icon">⌁</span>Analysis</button>
+      </nav>
+      <div class="side-label side-label-lower">PREFERENCES</div>
+      <nav class="main-nav">
+        <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="status-dot"></div>
+        <div><strong>LOCAL SESSION</strong><small>Your data stays in this browser</small></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumb"><span>REFLEX</span><b>/</b><span id="crumbCurrent">Overview</span></div>
+        <div class="topbar-right">
+          <span class="live-indicator"><i></i> SYSTEM READY</span>
+          <button class="icon-button" id="resetData" title="Reset local data" aria-label="Reset local data">↻</button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-overview">
+        <div class="page-heading">
+          <div><p class="eyebrow">YOUR PERFORMANCE SPACE</p><h1>Overview<span class="green-dot">.</span></h1><p class="subheading">Measure your reflexes. Train with intent. Track your progress.</p></div>
+          <div class="date-chip" id="todayLabel">TODAY</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card feature-stat"><div class="stat-top"><span>AVERAGE REACTION</span><span class="stat-symbol">◷</span></div><div class="stat-value" id="overviewAverage">—<small> ms</small></div><div class="stat-foot">Across your recorded tests</div></article>
+          <article class="stat-card"><div class="stat-top"><span>PERSONAL BEST</span><span class="stat-symbol">✦</span></div><div class="stat-value" id="overviewBest">—<small> ms</small></div><div class="stat-foot">Your fastest valid response</div></article>
+          <article class="stat-card"><div class="stat-top"><span>TESTS COMPLETED</span><span class="stat-symbol">▤</span></div><div class="stat-value" id="overviewTests">0</div><div class="stat-foot">Valid reaction attempts</div></article>
+          <article class="stat-card"><div class="stat-top"><span>TRAINING STREAK</span><span class="stat-symbol">⚡</span></div><div class="stat-value" id="overviewStreak">0<small> days</small></div><div class="stat-foot">Days with a recorded test</div></article>
+        </div>
+
+        <div class="overview-grid">
+          <article class="panel test-panel">
+            <div class="panel-heading"><div><p class="eyebrow">PRIMARY TEST</p><h2>Reaction speed</h2></div><span class="tag tag-green">VISUAL MODE</span></div>
+            <div class="reaction-stage ready" id="overviewStage" role="button" tabindex="0" aria-label="Reaction test area">
+              <div class="stage-crosshair">+</div>
+              <div class="stage-content"><div class="stage-icon" id="overviewStageIcon">◎</div><div class="stage-title" id="overviewStageTitle">Ready when you are</div><div class="stage-copy" id="overviewStageCopy">Wait for green. Then click as fast as you can.</div><div class="stage-ms" id="overviewStageMs"></div><button class="primary-button" id="overviewStart">START TEST <span>↗</span></button></div>
+              <div class="stage-hint" id="overviewStageHint">SPACE / CLICK TO START</div>
+            </div>
+            <div class="test-meta"><span><i class="mini-dot"></i> Random delay: 1–5 seconds</span><span>5 rounds recommended</span><button class="text-button" data-go="test">Open full test →</button></div>
+          </article>
+
+          <article class="panel recent-panel">
+            <div class="panel-heading"><div><p class="eyebrow">LATEST ACTIVITY</p><h2>Recent results</h2></div><button class="text-button" data-go="analysis">View all →</button></div>
+            <div id="recentResults" class="recent-list"><div class="empty-state">No results yet. Run your first test to see your data here.</div></div>
+          </article>
+        </div>
+
+        <div class="bottom-grid">
+          <article class="panel chart-panel"><div class="panel-heading"><div><p class="eyebrow">YOUR HISTORY</p><h2>Reaction trend</h2></div><span class="chart-unit">MILLISECONDS</span></div><canvas id="overviewChart" height="170" aria-label="Reaction time trend chart"></canvas><div class="chart-legend"><span><i class="legend-line"></i>Your reaction time</span><span>Lower is faster</span></div></article>
+          <article class="panel benchmark-panel"><div class="panel-heading"><div><p class="eyebrow">REFERENCE GUIDE</p><h2>How did you do?</h2></div></div><div class="benchmark"><span>Under 150 ms</span><b class="benchmark-excellent">Exceptional</b><div class="bar"><i style="width:22%"></i></div></div><div class="benchmark"><span>150–200 ms</span><b class="benchmark-fast">Very fast</b><div class="bar"><i style="width:42%"></i></div></div><div class="benchmark"><span>200–250 ms</span><b class="benchmark-average">Typical range</b><div class="bar"><i style="width:65%"></i></div></div><div class="benchmark"><span>250–300 ms</span><b class="benchmark-slow">Keep training</b><div class="bar"><i style="width:82%"></i></div></div><p class="fine-print">Illustrative ranges for simple visual reaction tests. Results vary with device, display, input method, alertness and testing conditions.</p></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-test">
+        <div class="page-heading"><div><p class="eyebrow">MEASURE YOUR REFLEXES</p><h1>Reaction test<span class="green-dot">.</span></h1><p class="subheading">A simple visual reaction test with randomized signal timing.</p></div><div class="tag tag-green">5 ROUND SESSION</div></div>
+        <div class="test-layout">
+          <article class="panel full-test-panel">
+            <div class="panel-heading"><div><p class="eyebrow">VISUAL RESPONSE PROTOCOL</p><h2 id="testRoundLabel">Round 1 of 5</h2></div><div class="round-dots" id="roundDots"><i class="current"></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="reaction-stage large ready" id="mainStage" role="button" tabindex="0" aria-label="Reaction test area">
+              <div class="stage-crosshair">+</div><div class="stage-content"><div class="stage-icon" id="mainStageIcon">◎</div><div class="stage-title" id="mainStageTitle">Ready?</div><div class="stage-copy" id="mainStageCopy">Press start. Wait for the screen to turn green.</div><div class="stage-ms" id="mainStageMs"></div><button class="primary-button" id="mainStart">START SESSION <span>↗</span></button></div><div class="stage-hint" id="mainStageHint">DO NOT CLICK UNTIL GREEN</div>
+            </div>
+            <div class="session-footer"><div><span class="muted-label">SESSION AVERAGE</span><strong id="sessionAverage">— ms</strong></div><div><span class="muted-label">FASTEST THIS SESSION</span><strong id="sessionBest">— ms</strong></div><button class="secondary-button" id="resetSession">Reset session</button></div>
+          </article>
+          <aside class="panel instructions-panel"><p class="eyebrow">HOW IT WORKS</p><h2>Stay sharp.</h2><ol class="instructions"><li><b>01</b><span>Press start to begin the round.</span></li><li><b>02</b><span>Wait through the random delay. The screen is red.</span></li><li><b>03</b><span>When it turns green, click or press SPACE immediately.</span></li><li><b>04</b><span>Your time is recorded in milliseconds.</span></li></ol><div class="warning-note"><span>!</span><p><strong>False start?</strong><br>Clicking before green invalidates that round. Wait for the next attempt.</p></div><p class="fine-print">For the most consistent results, use the same device and input method each time. Browser-based measurements are affected by hardware and display latency.</p></aside>
+        </div>
+      </section>
+
+      <section class="page" id="page-trainer">
+        <div class="page-heading"><div><p class="eyebrow">BUILD YOUR RESPONSE SKILLS</p><h1>Trainer games<span class="green-dot">.</span></h1><p class="subheading">Short challenges for speed, attention and response control.</p></div><span class="tag tag-green">TRAINING ZONE</span></div>
+        <div class="games-grid">
+          <article class="game-card"><div class="game-art target-art"><span>◎</span><i></i><i></i><i></i></div><div class="game-card-body"><div class="game-meta"><span class="tag">SPEED</span><span>30 SECONDS</span></div><h2>Target Rush</h2><p>Click targets as they appear. Build speed while keeping your accuracy high.</p><button class="secondary-button game-launch" data-game="target">Play challenge <span>→</span></button></div></article>
+          <article class="game-card"><div class="game-art memory-art"><span>▦</span><i></i><i></i><i></i></div><div class="game-card-body"><div class="game-meta"><span class="tag">MEMORY</span><span>SEQUENCE</span></div><h2>Pattern Memory</h2><p>Watch a sequence of tiles light up, then repeat it in the right order.</p><button class="secondary-button game-launch" data-game="memory">Play challenge <span>→</span></button></div></article>
+          <article class="game-card"><div class="game-art nogo-art"><span>GO</span><i>STOP</i></div><div class="game-card-body"><div class="game-meta"><span class="tag">CONTROL</span><span>20 SIGNALS</span></div><h2>Go / No-Go</h2><p>Respond to green signals and hold back on red ones. Train impulse control.</p><button class="secondary-button game-launch" data-game="nogo">Play challenge <span>→</span></button></div></article>
+          <article class="game-card"><div class="game-art focus-art"><span>✣</span><i></i><i></i></div><div class="game-card-body"><div class="game-meta"><span class="tag">ATTENTION</span><span>30 SECONDS</span></div><h2>Focus Finder</h2><p>Find and click the unique symbol among decoys before time runs out.</p><button class="secondary-button game-launch" data-game="focus">Play challenge <span>→</span></button></div></article>
+          <article class="game-card"><div class="game-art track-art"><span>↗</span><i></i><i></i></div><div class="game-card-body"><div class="game-meta"><span class="tag">TRACKING</span><span>30 SECONDS</span></div><h2>Moving Target</h2><p>Track a moving target and click it before it escapes. Test visual pursuit.</p><button class="secondary-button game-launch" data-game="tracking">Play challenge <span>→</span></button></div></article>
+        </div>
+        <div class="panel game-disclaimer"><span class="info-icon">i</span><p>These mini-games are practice exercises, not clinically validated cognitive assessments. Improvement in a game score does not necessarily mean everyday reaction speed has improved.</p></div>
+      </section>
+
+      <section class="page" id="page-analysis">
+        <div class="page-heading"><div><p class="eyebrow">DATA & PERFORMANCE</p><h1>Analysis<span class="green-dot">.</span></h1><p class="subheading">Review your recorded reaction-time sessions.</p></div><button class="secondary-button" id="exportCsv">Export CSV ↓</button></div>
+        <div class="stats-grid analysis-stats"><article class="stat-card"><div class="stat-top"><span>ALL-TIME AVERAGE</span></div><div class="stat-value" id="analysisAverage">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>ALL-TIME BEST</span></div><div class="stat-value" id="analysisBest">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>RECORDED TESTS</span></div><div class="stat-value" id="analysisCount">0</div></article><article class="stat-card"><div class="stat-top"><span>LAST 7 DAYS</span></div><div class="stat-value" id="analysisWeek">0</div></article></div>
+        <article class="panel analysis-chart"><div class="panel-heading"><div><p class="eyebrow">REACTION HISTORY</p><h2>All recorded attempts</h2></div><span class="chart-unit">MS</span></div><canvas id="analysisChart" height="230"></canvas></article>
+        <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">SESSION LOG</p><h2>Recent attempts</h2></div><span class="chart-unit" id="logCount">0 RECORDS</span></div><div class="table-wrap"><table><thead><tr><th>#</th><th>REACTION TIME</th><th>DATE</th><th>TIME</th><th>RESULT</th></tr></thead><tbody id="historyTable"><tr><td colspan="5" class="empty-state">No attempts recorded yet.</td></tr></tbody></table></div></article>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-heading"><div><p class="eyebrow">PREFERENCES</p><h1>Settings<span class="green-dot">.</span></h1><p class="subheading">Adjust your local REFLEX experience.</p></div></div>
+        <article class="panel settings-panel"><div class="setting-row"><div><h3>Sound effects</h3><p>Play a subtle tone when the signal changes.</p></div><label class="switch"><input type="checkbox" id="soundToggle" checked><span></span></label></div><div class="setting-row"><div><h3>Reduced motion</h3><p>Reduce interface transitions and animated effects.</p></div><label class="switch"><input type="checkbox" id="motionToggle"><span></span></label></div><div class="setting-row"><div><h3>Data storage</h3><p>Your results are stored locally in this browser. They are not uploaded to a server.</p></div><span class="tag tag-green">LOCAL ONLY</span></div><div class="setting-row danger-row"><div><h3>Clear all data</h3><p>Delete saved reaction tests and training records from this browser.</p></div><button class="danger-button" id="clearAll">Clear data</button></div></article>
+      </section>
+
+      <footer class="footer"><span>REFLEX <b>·</b> REACTION TRAINING LAB</span><span>BUILT FOR YOUR NEXT PERSONAL BEST.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="gameModal" aria-hidden="true"><div class="game-modal panel"><div class="modal-header"><div><p class="eyebrow">TRAINING CHALLENGE</p><h2 id="modalTitle">Target Rush</h2></div><button class="icon-button" id="closeModal" aria-label="Close game">✕</button></div><p class="modal-description" id="modalDescription"></p><div class="game-hud"><span id="gameScore">SCORE 0</span><span id="gameTimer">TIME 30</span><span id="gameAccuracy">ACCURACY —</span></div><div class="game-board" id="gameBoard"><div class="game-intro" id="gameIntro"><div class="game-intro-icon">✦</div><h3>Ready to train?</h3><p id="gameInstructions">Click the targets as quickly as you can.</p><button class="primary-button" id="startGame">START GAME ↗</button></div></div><div class="modal-footer"><span id="gameFeedback">Your training scores are saved locally.</span><button class="secondary-button" id="restartGame" hidden>Play again ↻</button></div></div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
