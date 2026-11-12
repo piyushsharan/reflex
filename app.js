@@ -89,62 +89,76 @@
     focus:{title:"Focus Finder",desc:"Find the unique symbol among the decoys.",instructions:"Click the one symbol that is different from all the others."},
     tracking:{title:"Moving Target",desc:"Click the moving target as many times as you can in 30 seconds.",instructions:"The target moves around the board. Keep your eyes on it."}
   };
-  // Delegate launch clicks so every game card remains usable after closing the modal.
-  document.addEventListener("click",event=>{
-    const button=event.target.closest(".game-launch");
-    if(!button)return;
+  // Bind the launch buttons directly. They remain available after the modal is closed.
+  $(".game-launch").forEach(button=>button.addEventListener("click",event=>{
     event.preventDefault();
-    event.stopImmediatePropagation();
     openGame(button.dataset.game);
-  },true);
+  }));
   function openGame(type){
     if(!gameInfo[type])return;
-    if($("#gameModal").classList.contains("open"))closeGame();
-    stopGameTimers();activeGame=type;
+    stopGameTimers();
+    activeGame=type;
     const info=gameInfo[type];
-    $("#modalTitle").textContent=info.title;$("#modalDescription").textContent=info.desc;$("#gameInstructions").textContent=info.instructions;
-    $("#gameModal").classList.add("open");$("#gameModal").setAttribute("aria-hidden","false");
+    $("#modalTitle").textContent=info.title;
+    $("#modalDescription").textContent=info.desc;
+    $("#gameInstructions").textContent=info.instructions;
+    $("#gameModal").classList.add("open");
+    $("#gameModal").setAttribute("aria-hidden","false");
     resetGameUI();
   }
-  function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;$("#gameBoard").innerHTML="";$("#restartGame").hidden=true;}
-  $("#closeModal").addEventListener("click",returnToGameSelection);
+  function closeGame(){
+    const hadRun=!!gameState.started;
+    if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
+    stopGameTimers();
+    gameState.finished=true;
+    const modal=$("#gameModal");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    activeGame=null;
+    $("#gameBoard").innerHTML="";
+    $("#gameBoard").classList.remove("game-selection-mode");
+    $("#restartGame").hidden=true;
+  }
+  $("#closeModal").addEventListener("click",closeGame);
   function returnToGameSelection(){
     if(gameState.started&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
     stopGameTimers();
     gameState.finished=true;
     activeGame=null;
     $("#modalTitle").textContent="Choose another game";
-    $("#modalDescription").textContent="Select a challenge below. No refresh needed.";
+    $("#modalDescription").textContent="Pick a challenge. Your game cards include a preview of each activity.";
     $("#gameScore").textContent="SCORE —";
     $("#gameTimer").textContent="READY";
     $("#gameAccuracy").textContent="ACCURACY —";
     $("#gameFeedback").textContent="Choose a game to continue training.";
     $("#restartGame").hidden=true;
     const board=$("#gameBoard");
-    board.innerHTML='<div class="game-intro"><h3>Switch training game</h3><p>Choose any challenge.</p><div class="game-switch-list"></div></div>';
+    board.classList.add("game-selection-mode");
+    board.innerHTML='<div class="game-picker"><div class="game-switch-list"></div></div>';
     const list=board.querySelector(".game-switch-list");
+    const art={
+      target:'<div class="game-art target-art"><span>◎</span><i></i><i></i><i></i></div>',
+      memory:'<div class="game-art memory-art"><span>▦</span><i></i><i></i></div>',
+      nogo:'<div class="game-art nogo-art"><span>GO</span><i>STOP</i></div>',
+      focus:'<div class="game-art focus-art"><span>✣</span><i></i><i></i></div>',
+      tracking:'<div class="game-art track-art"><span>↗</span><i></i><i></i></div>'
+    };
     Object.entries(gameInfo).forEach(([type,info])=>{
       const button=document.createElement("button");
       button.type="button";
-      button.className="secondary-button game-switch-option";
-      button.textContent=info.title+" →";
+      button.className="game-switch-option";
+      button.innerHTML=art[type]+'<span class="game-switch-title">'+info.title+'</span><span class="game-switch-desc">'+info.desc+'</span>';
       button.addEventListener("click",()=>{
         activeGame=type;
         $("#modalTitle").textContent=info.title;
         $("#modalDescription").textContent=info.desc;
+        board.classList.remove("game-selection-mode");
         resetGameUI();
       });
       list.append(button);
     });
   }
-  // Capture the switch click at document level so game-board handlers cannot swallow it.
-  document.addEventListener("click",event=>{
-    const button=event.target.closest("#switchGame");
-    if(!button)return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    returnToGameSelection();
-  },true);
+  $("#switchGame").addEventListener("click",returnToGameSelection);
   $("#gameModal").addEventListener("click",e=>{if(e.target===$("#gameModal"))closeGame();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#gameModal").classList.contains("open"))closeGame();});
   function scheduleGame(fn,delay){const run=gameRunId;const id=setTimeout(()=>{gameTimeouts.delete(id);if(run!==gameRunId||!$("#gameModal").classList.contains("open")||gameState.finished)return;fn();},delay);gameTimeouts.add(id);return id;}
