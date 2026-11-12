@@ -1,0 +1,6 @@
+# Make GitHub's language breakdown classify the real source files explicitly.
+*.html linguist-language=HTML
+*.js linguist-language=JavaScript
+*.css linguist-language=CSS
+*.py linguist-language=Python
+*.ts linguist-language=TypeScript
