@@ -27,37 +27,6 @@ python -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
-## Developer toolkit: Python + TypeScript
-
-The site stays a lightweight, dependency-free JavaScript app so GitHub Pages can serve it directly. The repository also includes:
-
-- **Python**: offline CSV analysis for average, median, best, slowest, standard deviation, 90th percentile and recent-vs-earlier trend.
-- **TypeScript**: dependency-free typed analytics primitives in `src/analytics.ts`, ready for incremental integration.
-
-### Python analytics
-
-Export reaction history from the Analysis page, then run:
-
-```bash
-python tools/analyze_reaction.py reflex-reaction-history.csv
-python tools/analyze_reaction.py reflex-reaction-history.csv --json
-```
-
-Run unit tests from the repository root:
-
-```bash
-python -m unittest discover -s tests
-```
-
-Python analysis runs locally and does not upload your results. The TypeScript module is source code at this stage; it does not add a build step or affect the deployed website.
-
-## Update the existing GitHub Pages site
-1. Download and extract the latest REFLEX project ZIP.
-2. Open your GitHub repository and choose **Add file → Upload files**.
-3. Upload/replace `index.html`, `styles.css`, `app.js`, and `README.md` from the `REFLEX` folder. Make sure the files are placed in the repository root, not inside an extra `REFLEX` folder.
-4. Commit the changes to the `main` branch.
-5. GitHub Pages should redeploy automatically. Refresh the published website after the deployment finishes; if an old version remains, do a hard refresh (`Ctrl + Shift + R`).
-
 ## Data and privacy
 Reaction and game history is stored in this browser's `localStorage`. There is no login, server, or cloud sync. The same browser profile on the same device will normally retain its history. Clearing browser site data may erase it. Different devices or browsers have separate histories. Use the reaction-history CSV export in Analysis to keep a backup.
 
@@ -68,6 +37,3 @@ Reaction times use the browser's high-resolution `performance.now()` clock. Real
 - `index.html` — page structure and content
 - `styles.css` — visual design and responsive layout
 - `app.js` — test logic, games, local data, charts and settings
-- `tools/analyze_reaction.py` — offline Python CSV analytics CLI
-- `src/analytics.ts` — typed TypeScript analytics primitives
-- `tests/test_analytics.py` — Python analytics unit tests
