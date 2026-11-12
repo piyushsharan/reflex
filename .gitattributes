@@ -1,6 +1,7 @@
-# Make GitHub's language breakdown classify the real source files explicitly.
-*.html linguist-language=HTML
-*.js linguist-language=JavaScript
-*.css linguist-language=CSS
-*.py linguist-language=Python
-*.ts linguist-language=TypeScript
+# Explicitly include first-party source files in GitHub Linguist statistics.
+# The app files are compact; ensure they are not treated as generated or prose.
+*.html linguist-language=HTML linguist-detectable=true linguist-generated=false
+*.js linguist-language=JavaScript linguist-detectable=true linguist-generated=false
+*.css linguist-language=CSS linguist-detectable=true linguist-generated=false
+*.py linguist-language=Python linguist-detectable=true linguist-generated=false
+*.ts linguist-language=TypeScript linguist-detectable=true linguist-generated=false
