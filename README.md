@@ -1,39 +1,42 @@
-# REFLEX — Reaction Training Lab
+# REFLEX
 
-A browser-based reaction-time tester and mini-game training dashboard.
+A reaction-time tester and browser-based training games.
 
-## Features
-- Randomized visual reaction test (1–5 second delay)
-- Five-round reaction test session and false-start detection
-- Average, personal best, test count, recent results and training streak
-- Local reaction history with charts and CSV export
-- Five trainer games: Target Rush, Pattern Memory, Go / No-Go, Focus Finder and Moving Target
-- Saved trainer-game scores with accuracy, date and time in the Trainer games page
-- Safe game switching: closing a game cancels its pending timers before another game opens
+## What it includes
+
+- Reaction test with a random wait before the signal
+- Five-round test sessions and false-start detection
+- Average and best reaction times
+- Reaction history, charts and CSV export
+- Five games: Target Rush, Pattern Memory, Go / No-Go, Focus Finder and Moving Target
+- Saved game scores
 - Sound and reduced-motion settings
-- Responsive dark interface
 
-## Run locally
-No build tools or dependencies are required for the website.
+## Run it
 
-1. Download or clone this repository.
-2. Open `index.html` in a modern browser.
+The project uses plain HTML, CSS and JavaScript. It has no package installation or build step.
 
-For a local development server, use the VS Code Live Server extension, or run:
+1. Clone or download the repository.
+2. Open `index.html` in a browser.
+
+To run it from a local server, use:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then visit `http://localhost:8000`.
+Then open http://localhost:8000.
 
-## Data and privacy
-Reaction and game history is stored in this browser's `localStorage`. There is no login, server, or cloud sync. The same browser profile on the same device will normally retain its history. Clearing browser site data may erase it. Different devices or browsers have separate histories. Use the reaction-history CSV export in Analysis to keep a backup.
+## Where data is stored
 
-## Measurement note
-Reaction times use the browser's high-resolution `performance.now()` clock. Real-world measurements are influenced by display refresh, input device, browser scheduling, and system load. Use the same device and setup when comparing results. The reference ranges are illustrative, not a medical or clinical assessment.
+Test results and game scores are saved in the browser's local storage. They are not synced to an account or sent to a server. Clearing the browser's site data will remove them, so export your reaction history from the Analysis page if you want a backup.
 
-## Project structure
-- `index.html` — page structure and content
-- `styles.css` — visual design and responsive layout
-- `app.js` — test logic, games, local data, charts and settings
+## Files
+
+- `index.html` — page layout
+- `styles.css` — styles and responsive layout
+- `app.js` — reaction test, games, navigation and data handling
+
+## About reaction-time results
+
+Results can vary with the screen's refresh rate, mouse or keyboard, browser and system load. Compare sessions using the same device and setup. REFLEX is for practice and general tracking, not a clinical measurement.
