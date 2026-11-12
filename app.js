@@ -103,7 +103,6 @@
     const info=gameInfo[type];
     $("#modalTitle").textContent=info.title;
     $("#modalDescription").textContent=info.desc;
-    $("#gameInstructions").textContent=info.instructions;
     $("#gameModal").classList.add("open");
     $("#gameModal").setAttribute("aria-hidden","false");
     resetGameUI();
