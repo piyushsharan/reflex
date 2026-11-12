@@ -14,7 +14,7 @@ A browser-based reaction-time tester and mini-game training dashboard.
 - Responsive dark interface
 
 ## Run locally
-No build tools or dependencies are required.
+No build tools or dependencies are required for the website.
 
 1. Download or clone this repository.
 2. Open `index.html` in a modern browser.
@@ -26,6 +26,30 @@ python -m http.server 8000
 ```
 
 Then visit `http://localhost:8000`.
+
+## Developer toolkit: Python + TypeScript
+
+The site stays a lightweight, dependency-free JavaScript app so GitHub Pages can serve it directly. The repository also includes:
+
+- **Python**: offline CSV analysis for average, median, best, slowest, standard deviation, 90th percentile and recent-vs-earlier trend.
+- **TypeScript**: dependency-free typed analytics primitives in `src/analytics.ts`, ready for incremental integration.
+
+### Python analytics
+
+Export reaction history from the Analysis page, then run:
+
+```bash
+python tools/analyze_reaction.py reflex-reaction-history.csv
+python tools/analyze_reaction.py reflex-reaction-history.csv --json
+```
+
+Run unit tests from the repository root:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Python analysis runs locally and does not upload your results. The TypeScript module is source code at this stage; it does not add a build step or affect the deployed website.
 
 ## Update the existing GitHub Pages site
 1. Download and extract the latest REFLEX project ZIP.
@@ -44,3 +68,6 @@ Reaction times use the browser's high-resolution `performance.now()` clock. Real
 - `index.html` — page structure and content
 - `styles.css` — visual design and responsive layout
 - `app.js` — test logic, games, local data, charts and settings
+- `tools/analyze_reaction.py` — offline Python CSV analytics CLI
+- `src/analytics.ts` — typed TypeScript analytics primitives
+- `tests/test_analytics.py` — Python analytics unit tests
