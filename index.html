@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8a61dfc" />
+  <link rel="stylesheet" href="styles.css?v=ff8cfcbe" />
 </head>
 <body>
   <div class="app-shell">
@@ -112,14 +112,24 @@
 
       <section class="page" id="page-analysis">
         <div class="page-heading"><div><p class="eyebrow">DATA & PERFORMANCE</p><h1>Analysis<span class="green-dot">.</span></h1><p class="subheading">Review reaction-time tests and training-game performance in one place.</p></div><button class="secondary-button" id="exportCsv">Export CSV ↓</button></div>
+        <div class="analysis-tabs" role="tablist" aria-label="Analysis category">
+          <button class="analysis-tab active" type="button" role="tab" aria-selected="true" data-analysis-tab="reaction">Reaction test <span>Timing &amp; history</span></button>
+          <button class="analysis-tab" type="button" role="tab" aria-selected="false" data-analysis-tab="games">Training games <span>Scores &amp; accuracy</span></button>
+        </div>
+        <div class="analysis-panels">
+          <div class="analysis-panel" id="analysis-reaction-panel">
         <div class="analysis-section-heading"><p class="eyebrow">01 / REACTION TEST</p><h2>Reaction-time performance</h2><p>Objective results from your visual reaction tests.</p></div>
         <div class="stats-grid analysis-stats"><article class="stat-card"><div class="stat-top"><span>ALL-TIME AVERAGE</span></div><div class="stat-value" id="analysisAverage">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>ALL-TIME BEST</span></div><div class="stat-value" id="analysisBest">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>RECORDED TESTS</span></div><div class="stat-value" id="analysisCount">0</div></article><article class="stat-card"><div class="stat-top"><span>LAST 7 DAYS</span></div><div class="stat-value" id="analysisWeek">0</div></article></div>
         <article class="panel analysis-chart"><div class="panel-heading"><div><p class="eyebrow">REACTION HISTORY</p><h2>All recorded attempts</h2></div><span class="chart-unit">MS</span></div><canvas id="analysisChart" height="230"></canvas></article>
         <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">SESSION LOG</p><h2>Recent attempts</h2></div><span class="chart-unit" id="logCount">0 RECORDS</span></div><div class="table-wrap"><table><thead><tr><th>#</th><th>REACTION TIME</th><th>DATE</th><th>TIME</th><th>RESULT</th></tr></thead><tbody id="historyTable"><tr><td colspan="5" class="empty-state">No attempts recorded yet.</td></tr></tbody></table></div></article>
+          </div>
+          <div class="analysis-panel" id="analysis-games-panel" hidden>
         <div class="analysis-section-heading training-analysis-heading"><p class="eyebrow">02 / TRAINING GAMES</p><h2>Training performance</h2><p>Track how your scores and accuracy develop across each exercise.</p></div>
         <div class="stats-grid analysis-stats training-analysis-stats"><article class="stat-card"><div class="stat-top"><span>GAME SESSIONS</span></div><div class="stat-value" id="gameAnalysisSessions">0</div><div class="stat-foot">Saved training attempts</div></article><article class="stat-card"><div class="stat-top"><span>AVERAGE ACCURACY</span></div><div class="stat-value" id="gameAnalysisAccuracy">—</div><div class="stat-foot">Across completed sessions</div></article><article class="stat-card"><div class="stat-top"><span>GAMES PLAYED</span></div><div class="stat-value" id="gameAnalysisTypes">0</div><div class="stat-foot">Different training exercises</div></article></div>
         <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">BY EXERCISE</p><h2>Game performance breakdown</h2></div><span class="chart-unit">ALL SAVED SESSIONS</span></div><div class="table-wrap"><table><thead><tr><th>GAME</th><th>SESSIONS</th><th>BEST SCORE</th><th>AVG ACCURACY</th><th>LAST PLAYED</th></tr></thead><tbody id="gameBreakdownTable"></tbody></table></div></article>
         <article class="panel table-panel training-session-log"><div class="panel-heading"><div><p class="eyebrow">RECENT TRAINING</p><h2>Session-by-session results</h2></div><span class="chart-unit" id="trainingLogCount">0 RECORDS</span></div><div class="table-wrap"><table><thead><tr><th>GAME</th><th>SCORE</th><th>ACCURACY</th><th>ATTEMPTS</th><th>DATE</th></tr></thead><tbody id="gameSessionTable"></tbody></table></div></article>
+          </div>
+        </div>
       </section>
 
       <section class="page" id="page-settings">
@@ -133,6 +143,6 @@
 
   <div class="modal-backdrop" id="gameModal" aria-hidden="true"><div class="game-modal panel"><div class="modal-header"><div><p class="eyebrow">TRAINING CHALLENGE</p><h2 id="modalTitle">Target Rush</h2></div><button class="icon-button" id="closeModal" aria-label="Close game">✕</button></div><p class="modal-description" id="modalDescription"></p><div class="game-hud"><span id="gameScore">SCORE 0</span><span id="gameTimer">TIME 30</span><span id="gameAccuracy">ACCURACY —</span></div><div class="game-board" id="gameBoard"><div class="game-intro" id="gameIntro"><div class="game-intro-icon">✦</div><h3>Ready to train?</h3><p id="gameInstructions">Click the targets as quickly as you can.</p><button class="primary-button" id="startGame">START GAME ↗</button></div></div><div class="modal-footer"><span id="gameFeedback">Your training scores are saved locally.</span><div class="modal-actions"><button class="secondary-button" id="switchGame" type="button">Switch game</button><button class="secondary-button" id="restartGame" hidden>Play again ↻</button></div></div></div></div>
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=8a61dfc"></script>
+  <script src="app.js?v=ff8cfcbe"></script>
 </body>
 </html>
