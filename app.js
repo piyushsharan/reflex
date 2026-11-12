@@ -89,11 +89,13 @@
     focus:{title:"Focus Finder",desc:"Find the unique symbol among the decoys.",instructions:"Click the one symbol that is different from all the others."},
     tracking:{title:"Moving Target",desc:"Click the moving target as many times as you can in 30 seconds.",instructions:"The target moves around the board. Keep your eyes on it."}
   };
-  // Bind the launch buttons directly. They remain available after the modal is closed.
-  $$(".game-launch").forEach(button=>button.addEventListener("click",event=>{
+  // Delegate game launches so the cards keep working after the modal closes.
+  document.addEventListener("click",event=>{
+    const button=event.target.closest(".game-launch");
+    if(!button)return;
     event.preventDefault();
     openGame(button.dataset.game);
-  }));
+  });
   function openGame(type){
     if(!gameInfo[type])return;
     stopGameTimers();
