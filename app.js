@@ -90,7 +90,7 @@
     tracking:{title:"Moving Target",desc:"Click the moving target as many times as you can in 30 seconds.",instructions:"The target moves around the board. Keep your eyes on it."}
   };
   // Bind the launch buttons directly. They remain available after the modal is closed.
-  $(".game-launch").forEach(button=>button.addEventListener("click",event=>{
+  $$(".game-launch").forEach(button=>button.addEventListener("click",event=>{
     event.preventDefault();
     openGame(button.dataset.game);
   }));
