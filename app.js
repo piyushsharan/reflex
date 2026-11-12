@@ -87,22 +87,20 @@
   }
   function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;}
   $("#closeModal").addEventListener("click",closeGame);
-  function returnToGameSelection(event){
-    event?.preventDefault();
-    event?.stopPropagation();
+  function returnToGameSelection(){
     if(gameState.started&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
     stopGameTimers();
     gameState.finished=true;
     activeGame=null;
     $("#modalTitle").textContent="Choose another game";
-    $("#modalDescription").textContent="Select a challenge below. Your current game has been safely stopped.";
+    $("#modalDescription").textContent="Select a challenge below. No refresh needed.";
     $("#gameScore").textContent="SCORE —";
     $("#gameTimer").textContent="READY";
     $("#gameAccuracy").textContent="ACCURACY —";
     $("#gameFeedback").textContent="Choose a game to continue training.";
     $("#restartGame").hidden=true;
     const board=$("#gameBoard");
-    board.innerHTML='<div class="game-intro"><h3>Switch training game</h3><p>Choose any challenge — no page refresh needed.</p><div class="game-switch-list"></div></div>';
+    board.innerHTML='<div class="game-intro"><h3>Switch training game</h3><p>Choose any challenge.</p><div class="game-switch-list"></div></div>';
     const list=board.querySelector(".game-switch-list");
     Object.entries(gameInfo).forEach(([type,info])=>{
       const button=document.createElement("button");
@@ -118,7 +116,14 @@
       list.append(button);
     });
   }
-  $("#switchGame").addEventListener("click",returnToGameSelection);
+  // Capture the switch click at document level so game-board handlers cannot swallow it.
+  document.addEventListener("click",event=>{
+    const button=event.target.closest("#switchGame");
+    if(!button)return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    returnToGameSelection();
+  },true);
   $("#gameModal").addEventListener("click",e=>{if(e.target===$("#gameModal"))closeGame();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#gameModal").classList.contains("open"))closeGame();});
   function scheduleGame(fn,delay){const run=gameRunId;const id=setTimeout(()=>{gameTimeouts.delete(id);if(run!==gameRunId||!$("#gameModal").classList.contains("open")||gameState.finished)return;fn();},delay);gameTimeouts.add(id);return id;}
