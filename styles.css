@@ -19,3 +19,15 @@
 
 /* In-modal game switcher */
 .game-switch-list{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.game-switch-option{min-width:145px}
+
+
+/* Compact, switchable analysis dashboard */
+.analysis-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0 20px}
+.analysis-tab{display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:7px;background:#111719;color:#d8e1df;font:700 12px var(--sans);cursor:pointer;transition:border-color .18s,background .18s}
+.analysis-tab span{font:10px var(--mono);color:#849194;font-weight:400}
+.analysis-tab:hover,.analysis-tab.active{border-color:var(--green);background:#17211b}
+.analysis-tab.active{box-shadow:inset 3px 0 0 var(--green)}
+.analysis-panel[hidden]{display:none!important}
+.analysis-panels{min-width:0}
+.analysis-panel>.analysis-section-heading:first-child{margin-top:0}
+@media(max-width:560px){.analysis-tabs{gap:7px}.analysis-tab{padding:11px 10px;font-size:11px}.analysis-tab span{font-size:9px}}
