@@ -13,3 +13,6 @@
 
 /* Clear hierarchy for the two independent analysis tracks. */
 .analysis-section-heading{margin:8px 0 16px;padding:0 0 13px;border-bottom:1px solid var(--line)}.analysis-section-heading h2{font-size:19px;margin:0}.analysis-section-heading>p:last-child{font-size:11px;color:#849194;margin:6px 0 0}.training-analysis-heading{margin-top:30px}.training-analysis-stats{margin-bottom:15px}.reaction-stage.go{transition:none!important}
+
+/* Keep the green reaction stimulus visually immediate and cheap to paint. */
+.reaction-stage.go{background:#173b1c!important;border-color:#a7ff4f!important;box-shadow:none!important;transition:none!important}
