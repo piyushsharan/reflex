@@ -16,3 +16,6 @@
 
 /* Keep the green reaction stimulus visually immediate and cheap to paint. */
 .reaction-stage.go{background:#173b1c!important;border-color:#a7ff4f!important;box-shadow:none!important;transition:none!important}
+
+/* In-modal game switcher */
+.game-switch-list{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.game-switch-option{min-width:145px}
