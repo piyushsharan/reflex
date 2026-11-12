@@ -94,11 +94,30 @@
     stopGameTimers();
     gameState.finished=true;
     activeGame=null;
-    const modal=$("#gameModal");
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden","true");
-    showPage("trainer");
-    requestAnimationFrame(()=>{$("#page-trainer").scrollIntoView({block:"start"});});
+    $("#modalTitle").textContent="Choose another game";
+    $("#modalDescription").textContent="Select a challenge below. Your current game has been safely stopped.";
+    $("#gameScore").textContent="SCORE —";
+    $("#gameTimer").textContent="READY";
+    $("#gameAccuracy").textContent="ACCURACY —";
+    $("#gameFeedback").textContent="Choose a game to continue training.";
+    $("#restartGame").hidden=true;
+    const board=$("#gameBoard");
+    board.innerHTML='<div class="game-intro"><h3>Switch training game</h3><p>Choose any challenge — no page refresh needed.</p><div class="game-switch-list"></div></div>';
+    const list=board.querySelector(".game-switch-list");
+    Object.entries(gameInfo).forEach(([type,info])=>{
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="secondary-button game-switch-option";
+      button.textContent=info.title+" →";
+      button.addEventListener("click",()=>{
+        activeGame=type;
+        $("#modalTitle").textContent=info.title;
+        $("#modalDescription").textContent=info.desc;
+        $("#gameInstructions").textContent=info.instructions;
+        resetGameUI();
+      });
+      list.append(button);
+    });
   }
   $("#switchGame").addEventListener("click",returnToGameSelection);
   $("#gameModal").addEventListener("click",e=>{if(e.target===$("#gameModal"))closeGame();});
