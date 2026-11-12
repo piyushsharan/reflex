@@ -7,3 +7,6 @@
 .game-history-panel{margin-top:15px}.game-history-panel td:nth-child(2){font:12px var(--mono);color:var(--green)}.game-history-panel td:nth-child(3){font:11px var(--mono);color:#b7c1bf}
 
 .modal-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}.modal-footer>span{line-height:1.5}@media(max-width:480px){.modal-footer{align-items:flex-start;flex-direction:column}.modal-actions{width:100%;justify-content:flex-end}}
+
+/* The reaction stimulus must switch instantly; transitions would blur the timing start. */
+.reaction-stage.go{transition:none}
