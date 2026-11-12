@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=8a61dfc" />
 </head>
 <body>
   <div class="app-shell">
@@ -111,7 +111,7 @@
       </section>
 
       <section class="page" id="page-analysis">
-        <div class="page-heading"><div><p class="eyebrow">DATA & PERFORMANCE</p><h1>Analysis<span class="green-dot">.</span></h1><p class="subheading">Review your recorded reaction-time sessions.</p></div><button class="secondary-button" id="exportCsv">Export CSV ↓</button></div>
+        <div class="page-heading"><div><p class="eyebrow">DATA & PERFORMANCE</p><h1>Analysis<span class="green-dot">.</span></h1><p class="subheading">Review reaction-time tests and training-game performance in one place.</p></div><button class="secondary-button" id="exportCsv">Export CSV ↓</button></div>
         <div class="analysis-section-heading"><p class="eyebrow">01 / REACTION TEST</p><h2>Reaction-time performance</h2><p>Objective results from your visual reaction tests.</p></div>
         <div class="stats-grid analysis-stats"><article class="stat-card"><div class="stat-top"><span>ALL-TIME AVERAGE</span></div><div class="stat-value" id="analysisAverage">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>ALL-TIME BEST</span></div><div class="stat-value" id="analysisBest">—<small> ms</small></div></article><article class="stat-card"><div class="stat-top"><span>RECORDED TESTS</span></div><div class="stat-value" id="analysisCount">0</div></article><article class="stat-card"><div class="stat-top"><span>LAST 7 DAYS</span></div><div class="stat-value" id="analysisWeek">0</div></article></div>
         <article class="panel analysis-chart"><div class="panel-heading"><div><p class="eyebrow">REACTION HISTORY</p><h2>All recorded attempts</h2></div><span class="chart-unit">MS</span></div><canvas id="analysisChart" height="230"></canvas></article>
@@ -133,6 +133,6 @@
 
   <div class="modal-backdrop" id="gameModal" aria-hidden="true"><div class="game-modal panel"><div class="modal-header"><div><p class="eyebrow">TRAINING CHALLENGE</p><h2 id="modalTitle">Target Rush</h2></div><button class="icon-button" id="closeModal" aria-label="Close game">✕</button></div><p class="modal-description" id="modalDescription"></p><div class="game-hud"><span id="gameScore">SCORE 0</span><span id="gameTimer">TIME 30</span><span id="gameAccuracy">ACCURACY —</span></div><div class="game-board" id="gameBoard"><div class="game-intro" id="gameIntro"><div class="game-intro-icon">✦</div><h3>Ready to train?</h3><p id="gameInstructions">Click the targets as quickly as you can.</p><button class="primary-button" id="startGame">START GAME ↗</button></div></div><div class="modal-footer"><span id="gameFeedback">Your training scores are saved locally.</span><div class="modal-actions"><button class="secondary-button" id="switchGame" type="button">Switch game</button><button class="secondary-button" id="restartGame" hidden>Play again ↻</button></div></div></div></div>
   <div class="toast" id="toast" role="status"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=8a61dfc"></script>
 </body>
 </html>
