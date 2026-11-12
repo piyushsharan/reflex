@@ -107,7 +107,7 @@
     resetGameUI();
   }
   function closeGame(){const hadRun=!!gameState.started;if(hadRun&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");stopGameTimers();gameState.finished=true;const modal=$("#gameModal");modal.classList.remove("open");modal.setAttribute("aria-hidden","true");activeGame=null;$("#gameBoard").innerHTML="";$("#restartGame").hidden=true;}
-  $("#closeModal").addEventListener("click",closeGame);
+  $("#closeModal").addEventListener("click",returnToGameSelection);
   function returnToGameSelection(){
     if(gameState.started&&!gameState.finished&&gameState.attempts>0)finishGame("Session saved");
     stopGameTimers();
