@@ -22,17 +22,17 @@
   function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2500);}
   function beep(freq=700,duration=.08){if(!settings.sound)return;try{const C=window.AudioContext||window.webkitAudioContext;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+duration);o.onended=()=>c.close();}catch{}}
 
-  function showPage(page,options={}){if(!pageNames[page])page="overview";if(!options.fromHistory&&location.hash!==`#${page}`)history.pushState({page},"",`#${page}`);$(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${page}`));$(".nav-link").forEach(b=>b.classList.toggle("active",b.dataset.page===page));$("#crumbCurrent").textContent=pageNames[page];$("#sidebar").classList.remove("open");if(page==="overview"||page==="analysis")setTimeout(drawCharts,30);if(page==="overview"||page==="analysis")renderStats();if(page==="trainer"||page==="analysis")renderGameHistory();}
+  function showPage(page,options={}){if(!pageNames[page])page="overview";if(!options.fromHistory&&location.hash!==`#${page}`)history.pushState({page},"",`#${page}`);$$(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${page}`));$$(".nav-link").forEach(b=>b.classList.toggle("active",b.dataset.page===page));$("#crumbCurrent").textContent=pageNames[page];$("#sidebar").classList.remove("open");if(page==="overview"||page==="analysis")setTimeout(drawCharts,30);if(page==="overview"||page==="analysis")renderStats();if(page==="trainer"||page==="analysis")renderGameHistory();}
   window.addEventListener("popstate",()=>showPage(location.hash.slice(1),{fromHistory:true}));
   window.addEventListener("hashchange",()=>{const page=location.hash.slice(1);if(pageNames[page])showPage(page,{fromHistory:true});});
-  $(".nav-link").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-  $("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
+  $$(".nav-link").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+  $$("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
   $("#mobileMenu").addEventListener("click",()=>$("#sidebar").classList.toggle("open"));
   function setAnalysisTab(tab){
     const reaction=tab==="reaction";
     $("#analysis-reaction-panel").hidden=!reaction;
     $("#analysis-games-panel").hidden=reaction;
-    $(".analysis-tab").forEach(button=>{
+    $$(".analysis-tab").forEach(button=>{
       const selected=button.dataset.analysisTab===tab;
       button.classList.toggle("active",selected);
       button.setAttribute("aria-selected",String(selected));
@@ -40,7 +40,7 @@
     if(reaction)drawCharts();
     else renderGameHistory();
   }
-  $(".analysis-tab").forEach(button=>button.addEventListener("click",()=>setAnalysisTab(button.dataset.analysisTab)));
+  $$(".analysis-tab").forEach(button=>button.addEventListener("click",()=>setAnalysisTab(button.dataset.analysisTab)));
   setAnalysisTab("reaction");
   $("#todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"short",day:"2-digit",month:"short"}).toUpperCase();
 
