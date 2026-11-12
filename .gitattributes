@@ -1,8 +1,0 @@
-# Keep the project's real source files in GitHub Linguist statistics.
-# Paths are explicit so there is no ambiguity about which files are included.
-index.html linguist-detectable=true linguist-generated=false linguist-documentation=false
-app.js linguist-detectable=true linguist-generated=false linguist-documentation=false
-styles.css linguist-detectable=true linguist-generated=false linguist-documentation=false
-tools/analyze_reaction.py linguist-detectable=true linguist-generated=false linguist-documentation=false
-src/analytics.ts linguist-detectable=true linguist-generated=false linguist-documentation=false
-tests/test_analytics.py linguist-detectable=true linguist-generated=false linguist-documentation=false
