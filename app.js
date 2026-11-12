@@ -113,7 +113,6 @@
         activeGame=type;
         $("#modalTitle").textContent=info.title;
         $("#modalDescription").textContent=info.desc;
-        $("#gameInstructions").textContent=info.instructions;
         resetGameUI();
       });
       list.append(button);
