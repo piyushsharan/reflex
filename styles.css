@@ -18,7 +18,16 @@
 .reaction-stage.go{background:#173b1c!important;border-color:#a7ff4f!important;box-shadow:none!important;transition:none!important}
 
 /* In-modal game switcher */
-.game-switch-list{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.game-switch-option{min-width:145px}
+.game-board.game-selection-mode{height:340px;min-height:340px;overflow-y:auto;display:block;padding:12px}
+.game-picker{width:100%}
+.game-switch-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%}
+.game-switch-option{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:0 0 10px;border:1px solid #394448;background:#12191b;color:#d8e1df;border-radius:7px;overflow:hidden;text-align:left;cursor:pointer}
+.game-switch-option:hover{border-color:var(--green);color:var(--green);transform:translateY(-1px)}
+.game-switch-option .game-art{height:82px;min-height:82px;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.game-switch-option .game-art>span{font-size:29px}
+.game-switch-title{font-size:11px;font-weight:800;padding:0 9px}
+.game-switch-desc{font-size:9px;line-height:1.45;color:#8b979a;padding:0 9px}
+@media(max-width:520px){.game-board.game-selection-mode{height:390px;min-height:390px}.game-switch-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.game-switch-option .game-art{height:72px;min-height:72px}}
 
 
 /* Compact, switchable analysis dashboard */
